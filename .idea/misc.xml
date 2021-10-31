@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday01_01_start" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday01_02_ParamsBind" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday01_03_Annoation" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday01_03_Annotation" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday02_01_Response" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday02_02_JsonData_Response" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday02_03_Fileupload" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday02_03_FileuploadServer" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday02_04_Exception" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday02_05_Interceptor" />
+    <file type="web" url="file://$PROJECT_DIR$/hm_springMVCday03_01_ssm" />
+    <file type="web" url="file://$PROJECT_DIR$/hut_Ex4" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/hm_springMVCday01_03_Annotation/pom.xml" />
+        <option value="$PROJECT_DIR$/hut_ex4/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

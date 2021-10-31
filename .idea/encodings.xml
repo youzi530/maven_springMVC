@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/hm_springMVCday01_01_start" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday01_02_ParamsBind" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday01_03_Annoation" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_01_Response" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_01_Response/上课资料/作业.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_02_JsonData_Response" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_03_Fileupload" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_03_FileuploadServer" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_04_Exception" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday02_05_Interceptor" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hm_springMVCday03_01_ssm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hut_Ex4" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hut_Ex4/src/main/java/com/domain/Login.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/hut_ex4" charset="UTF-8" />
+  </component>
+</project>

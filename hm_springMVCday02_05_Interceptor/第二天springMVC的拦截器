@@ -1,0 +1,29 @@
+1. 拦截器的概述
+    1. SpringMVC框架中的拦截器用于对处理器进行预处理和后处理的技术。
+    2. 可以定义拦截器链，连接器链就是将拦截器按着一定的顺序结成一条链，在访问被拦截的方法时，拦截器链 中的拦截器会按着定义的顺序执行。
+    3. 拦截器和过滤器的功能比较类似，有区别
+        1. 过滤器是Servlet规范的一部分，任何框架都可以使用过滤器技术。
+        2. 拦截器是SpringMVC框架独有的。
+        3. 过滤器配置了/*，可以拦截任何资源。
+        4. 拦截器只会对控制器中的方法进行拦截。
+    4. 拦截器也是AOP思想的一种实现方式
+    5. 想要自定义拦截器，需要实现HandlerInterceptor接口。
+
+2. 自定义拦截器步骤
+    1. 创建类，实现HandlerInterceptor接口，重写需要的方法
+    2. 在springmvc.xml中配置拦截器类
+
+3. HandlerInterceptor接口中的方法
+    1. preHandle方法是controller方法执行前拦截的方法
+        1. 可以使用request或者response跳转到指定的页面
+        2. return true放行，执行下一个拦截器，如果没有拦截器，执行controller中的方法。
+        3. return false不放行，不会执行controller中的方法。
+    2. postHandle是controller方法执行后执行的方法，在JSP视图执行前。
+        1. 可以使用request或者response跳转到指定的页面
+        2. 如果指定了跳转的页面，那么controller方法跳转的页面将不会显示。
+        3. postHandle方法是在JSP执行后执行
+            1. request或者response不能再跳转页面了
+
+4. 配置多个拦截器
+    1. 再编写一个拦截器的类
+    2. 配置2个拦截器

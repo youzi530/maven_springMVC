@@ -1,0 +1,46 @@
+
+1. 异常处理思路
+    1. Controller调用service，service调用dao，异常都是向上抛出的，最终有DispatcherServlet找异常处理器进 行异常的处理。
+2. SpringMVC的异常处理
+    1. 自定义异常类
+        /**
+         * 自定义异常类
+         */
+        public class MyslefException extends Exception {
+            private String message;
+            public MyslefException(String message) {
+                this.message = message;
+            }
+            public String getMessage() {
+                return message;
+            }
+            public void setMessage(String message) {
+                this.message = message;
+            }
+    2. 自定义异常处理器
+        public class MyslefExceptionResolver implements HandlerExceptionResolver {
+            /**
+             * 处理异常业务逻辑
+             * @param httpServletRequest
+             * @param httpServletResponse
+             * @return
+             */
+            @Override
+            public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler, Exception ex) {
+                // 获取到异常对象
+                MyslefException e = null;
+                if(ex instanceof MyslefException){
+                    e = (MyslefException)ex;
+                }else{
+                    e = new MyslefException("系统正在维护....");
+                }
+                // 创建ModelAndView对象
+                ModelAndView mv = new ModelAndView();
+                mv.addObject("errorMsg",e.getMessage());
+                mv.setViewName("error");
+                return mv;
+            }
+        }
+    3. 配置异常处理器
+         <!--配置异常处理器-->
+         <bean id="myslefException" class="exception.MyslefExceptionResolver"></bean>

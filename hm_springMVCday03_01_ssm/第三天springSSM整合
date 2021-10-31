@@ -1,0 +1,129 @@
+
+步骤：
+    一、新建项目
+    二、pom.xml导入坐标
+    三、新建目录：dao、domain、controller、service、resources、导入日志文件
+
+    四、搭建spring的框架：（业务层serviceimpl）
+        1、新建springConfig.xml配置文件    --------又叫applicationContxt.xml
+             a·完善配置文件的头部信息(去官网或者笔记中粘贴)
+             b·开启注解的扫描：(因为你需要用注解)
+                ·注意的是，如果你的目录结构是一个大的结构，就会把该目录下的所有目录都扫描，但是目录下的controller不需要交給spring:
+                    <!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
+                    <context:component-scan base-package="cn.itcast" >
+                        <!--配置哪些注解不扫描-->
+                        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+                    </context:component-scan>
+                ·如果你的目录结构是没有一个大的总目录的话，你要扫几个就写几个：
+                    <context:component-scan base-package="dao"></context:component-scan>
+                        <context:component-scan base-package="service"></context:component-scan>
+             c·在serviceImpl中加注解(@Service("accountService"))
+             d·编写spring的测试类：testSpring
+                //加载spring配置文件
+                ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:springConfig.xml");
+                //获取对象
+                AccountService as = ac.getBean("accountService", AccountService.class);
+                //调用方法
+                as.findAll();
+
+    五、搭建springMVC的框架：
+        1、配置web.xml文件：
+            a、在web.xml里面配置前端控制器：(DispatcherServlet)
+            b、在前端控制器中做两件事：
+                ·加载springmvc.xml配置文件：(contextConfigLocation)
+                ·启动服务器，创建该servlet： <load-on-startup>1</load-on-startup>
+            c、在web.xml里面配置中文乱码过滤器：(CharacterEncodingFilter)
+        2、新建springmvc.xml文件：
+            a、完善配置文件的头部信息(去官网或者笔记中粘贴)
+            b、配置开启注解扫描，只扫描Controller注解
+            c、配置的视图解析器对象
+            d、配置过滤静态资源：<mvc:resources location="/js/" mapping="/js/**" />
+            d、配置开启SpringMVC注解的支持： <mvc:annotation-driven/>
+        3、书写Controller层：加上@Controller、加上一二级目录、返回list
+        4、在WEB-INF下加上pages/list.jsp目录
+        5、启动测试
+
+    六、spring整合springMVC：
+        1、整合成功的标志：Controller层里的方法能成功调用到ServiceImpl中方法！
+        2、在web.xml中配置监听器：(<listener>)
+            在spring中去配置监听器，用监听器去监听服务器启动，然后就去加载spring的配置文件（springConfig.xml）
+            因为当你启动服务器的时候，只加载了springMVC.xml文件，而没去加载spring的配置文件
+        3、在Controller里面去加入Service的注入：并且调用方法
+             @Autowired
+             private AccountService accountService;
+
+    七、搭建MyBatis的框架：
+        1、使用注解的方式书写sql语句，直接在daoImpl里面的方法上写注解：
+            //查询所有
+            @Select("select * from account")
+            public List<Account> findAll();
+        2、书写核心配置文件SqlMapConfig，去配置数据库连接的信息：
+            a、配置数据库连接环境
+            b、引入映射配置文件：就是去扫描dao
+        3、编写测试类：
+            //加载mybatis配置文件
+            InputStream in = Resources.getResourceAsStream("SqlMapConfig.xml");
+            // 创建SqlSessionFactory对象
+            SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+            // 创建SqlSession对象
+            SqlSession session = factory.openSession();
+            // 获取到代理对象
+            AccountDao dao = session.getMapper(AccountDao.class);
+            // 查询所有数据
+            List<Account> list = dao.findAll();
+            for(Account account : list){
+                System.out.println(account);
+            }
+            // 关闭资源
+            session.close();
+            in.close();
+
+    八、Spring整合MyBatis框架
+        1、整合成功的标志：Service层里的方法能成功调用到dao的方法，并且成功操作数据库
+        2、spring配置文件中进行配置
+            将mybatis生成的代理对象也放入IOC容器中，那service也可以拿到这个代理对象
+                a·配置连接池
+                    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+                        <property name="jdbcUrl" value="jdbc:mysql:///ssm"/>
+                        <property name="user" value="root"/>
+                        <property name="password" value="root"/>
+                    </bean>
+                b·配置SqlSessionFactory
+                    <!--配置SqlSessionFactory工厂-->
+                    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                        <property name="dataSource" ref="dataSource" />
+                    </bean>
+                c·配置AccountDao接口所在的包
+                    <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+                        <property name="basePackage" value="cn.itcast.dao"/>
+                    </bean>
+                d·删除掉SqlMapConfig.xml
+        3、dao层加注解，加入到容器中：(@Repository)
+        4、在ServiceImpl里面：
+            a、引入Dao的注入：
+                @Autowired
+                private AccountDao accountDao;
+            b、并调用方法，并将查到的数据存入域对象中
+                List<Account> accounts = accountService.findAll();
+                model.addAttribute("accounts",accounts); //存到域对象中去了
+        5、list页面加入el表达式，遍历，得数据
+
+    九、Spring整合MyBatis框架配置事务
+        1、在springConfig.xml中进行配置
+            a、配置事务管理器
+                <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                    <property name="dataSource" ref="dataSource" />
+                </bean>
+            b、配置事务通知
+                 <tx:advice id="txAdvice" transaction-manager="transactionManager">
+                    <tx:attributes>
+                        <tx:method name="find*" read-only="true"/>
+                        <tx:method name="*" isolation="DEFAULT"/>
+                    </tx:attributes>
+                 </tx:advice>
+            c、配置AOP增强
+                 <aop:config>
+                    <aop:advisor advice-ref="txAdvice" pointcut="execution(* cn.itcast.service.impl.*ServiceImpl.*(..))"/>
+                 </aop:config>
+        2、测试

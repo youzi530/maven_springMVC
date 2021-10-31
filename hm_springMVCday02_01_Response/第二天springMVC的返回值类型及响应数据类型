@@ -1,0 +1,18 @@
+1. 返回值分类
+    1. 返回字符串
+        Controller方法返回字符串可以指定逻辑视图的名称，根据视图解析器为物理视图的地址。
+
+    2. 返回值是void
+        1. 如果控制器的方法返回值编写成void，执行程序报404的异常，默认查找JSP页面没有找到。
+            默认会跳转到@RequestMapping(value="/initUpdate") initUpdate的页面。
+        2. 可以使用请求转发或者重定向跳转到指定的页面
+
+    3. 返回值是ModelAndView对象
+        1. ModelAndView对象是Spring提供的一个对象，可以用来调整具体的JSP视图
+
+
+2. SpringMVC框架提供的转发和重定向
+    1. forward请求转发
+        1. controller方法返回String类型，想进行请求转发也可以编写成
+    2. redirect重定向
+        1. controller方法返回String类型，想进行重定向也可以编写成

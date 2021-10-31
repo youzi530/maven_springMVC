@@ -1,0 +1,67 @@
+1、环境搭建：
+    1、引入jquery.js文件
+
+    2、但是这里的jquery.js作为静态资源会被web.xml中拦截
+        所以在springmvc.xml中去加代码：
+            <!--前端控制器，哪些静态资源不拦截-->
+            <mvc:resources location="/css/" mapping="/css/**"/>
+            <mvc:resources location="/images/" mapping="/images/**"/>
+            <mvc:resources location="/js/" mapping="/js/**"/>
+
+    3、在jsp页面中书写一个ajax请求：
+        $(function () {
+            $("#btn").click(function () {
+                $.ajax({
+                    url:"user/testAjax",
+                    contentType:"application/json;charset=utf-8",
+                    data:'{"username":"呵呵","password":"1232","age":30}',
+                    dataType:"json",
+                    type:"POST",
+                    success:function (data) { //data是服务器响应的json数据，进行解析
+                    }
+                });
+            });
+        });
+
+    4、在后台控制层里面接收传过来的json数据
+        @RequestMapping("/testAjax")
+        public void testAjax(@RequestBody String body){
+            System.out.println("testAjax方法执行了...");
+            System.out.println(body);
+            //拿到传过来的json数据
+        }
+
+    5、将json数据封装到javaBean对象中去，并将数据返回到前端
+        1、·需要额外的jar包：
+            <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>2.9.0</version>
+            </dependency>
+            <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-core</artifactId>
+              <version>2.9.0</version>
+            </dependency>
+            <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-annotations</artifactId>
+              <version>2.9.0</version>
+            </dependency>
+
+        2、@ResponseBody User和 @RequestBody User user的使用
+            @RequestMapping("/testAjax")
+                public @ResponseBody User testAjax(@RequestBody User user){
+                    System.out.println("testAjax方法执行了...");
+                    //前端发送的是ajax请求，穿的是json数据，后端把json数据封装到user对象中去
+                    System.out.println(user);  //拿到传过来的json数据
+
+                    //作响应，模拟查询数据库
+                    user.setUsername("哈哈");
+                    user.setAge(40);
+
+                    //作响应
+                    return user;
+
+                }
+

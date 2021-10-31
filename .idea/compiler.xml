@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hm_springMVCday01_01_start" />
+        <module name="hm_springMVCday02_01_Response" />
+        <module name="hm_springMVCday02_02_JsonData_Response" />
+        <module name="hm_springMVCday02_04_Exception" />
+        <module name="hm_springMVCday01_03_Annoation" />
+        <module name="hm_springMVCday02_03_Fileupload" />
+        <module name="hm_springMVCday02_05_Interceptor" />
+        <module name="hut_Ex4" />
+        <module name="hm_springMVCday03_01_ssm" />
+        <module name="hm_springMVCday02_03_FileuploadServer" />
+        <module name="hm_springMVCday01_02_ParamsBind" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hm_springMVCday01_03_Annotation" target="1.7" />
+      <module name="hut_ex4" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

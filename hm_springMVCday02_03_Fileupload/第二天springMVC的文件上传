@@ -1,0 +1,37 @@
+文件上传下载：
+    一、 文件上传的必要前提
+        1、A form 表单的 enctype 取值必须是：multipart/form-data
+        2、B method 属性取值必须是 Post
+        3、C 提供一个文件选择域<input type=”file” />
+    二、 文件上传的原理分析
+        key=value&key=value&key=value
+    三、借助第三方组件实现文件上传
+        使用 Commons-fileupload 组件实现文件上传，需要导入该组件相应的支撑 jar 包：Commons-fileupload 和
+        commons-io。commons-io 不属于文件上传组件的开发 jar 文件，但Commons-fileupload 组件从 1.1 版本开始，它
+        工作时需要 commons-io 包的支持。
+
+文件上传下载的方式：
+    一、传统方式：
+        1. 导入文件上传的jar包
+        2. 编写文件上传的JSP页面
+        3. 编写文件上传的Controller控制器
+
+    二、SpringMVC方式文件上传 ：
+        分析：
+            1. SpringMVC框架提供了MultipartFile对象，该对象表示上传的文件，要求变量名称必须和表单file标签的 name属性名称相同。
+            2. 代码
+            3. 配置文件解析器对象 ，id一定要是：multipartResolver
+                    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+                        <property name="maxUploadSize" value="10485760"/>  --上传文件的大小10M
+                    </bean>
+
+    三、SpringMVC跨服务器方式文件上传
+        1. 搭建图片服务器
+            1. 根据文档配置tomcat9的服务器，现在是2个服务器
+            2. 导入资料中day02_springmvc5_02image项目，作为图片服务器使用
+        2. 实现SpringMVC跨服务器方式文件上传
+            1. 导入开发需要的jar包
+            2. 编写文件上传的JSP页面
+            3. 编写控制器
+
+
